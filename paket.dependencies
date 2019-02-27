@@ -1,0 +1,7 @@
+source https://api.nuget.org/v3/index.json
+framework net47
+nuget Costura.Fody
+nuget Fody
+nuget MahApps.Metro
+nuget MahApps.Metro.IconPacks
+nuget Newtonsoft.Json.Schema
