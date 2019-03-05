@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Cameras.Http;
 
 namespace Cameras.Data
 {
@@ -58,6 +59,22 @@ namespace Cameras.Data
 			}
 		}
 		public void Dispose() { Id = null; Region = null; Location.Dispose(); RoadWay = null; }
+
+		internal void DownloadAndSave(string Url, string RoadwayFolder)
+		{
+			bool Fail = false;
+			do
+			{
+				try
+				{
+
+					Response = ImageDownloader.DownloadPage(Url, this);
+					SaveResponsToImageFile(RoadwayFolder);
+					Fail = false;
+				}
+				catch (Exception) { Fail = true; }
+			} while (Fail);
+		}
 		#endregion
 	}
 }

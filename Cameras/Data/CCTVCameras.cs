@@ -80,6 +80,7 @@ namespace Cameras.Data
 				Cameras[Camera.Region][Camera.RoadWay].Add(Camera.Id, Camera);
 			}
 		}
+		
 		internal static void DownloadCamerasImagery(string Folder, string Date, string Time)
 		{
 			Folder = Path.Combine(Folder, $"{Date}__{Time}");
@@ -92,11 +93,7 @@ namespace Cameras.Data
 					string RoadwayFolder = Path.Combine(RegionFolder, Roadway);
 					SortedList<string, Camera> RoadwayCameras = RegionCameras[Roadway];
 					if (!Directory.Exists(RoadwayFolder)) { Directory.CreateDirectory(RoadwayFolder); }
-					foreach (Camera Camera in RoadwayCameras.Values)
-					{
-						Camera.Response = ImageDownloader.DownloadPage(Url, Camera);
-						Camera.SaveResponsToImageFile(RoadwayFolder);
-					}
+					foreach (Camera Camera in RoadwayCameras.Values) { Camera.DownloadAndSave(Url, RoadwayFolder); }
 				}
 			}
 		}
